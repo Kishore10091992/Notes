@@ -1,0 +1,233 @@
+# Alarm for EACH EKS Pod NAMESPACE - CPU
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "EKS-CPU-High-<namespace>" \
+  --alarm-description "High CPU usage for namespace <namespace>" \
+  --namespace "ContainerInsights" \
+  --metric-name "pod_cpu_utilization_over_pod_limit" \
+  --dimensions Name=ClusterName,Value=<cluster-name> Name=Namespace,Value=<namespace> Name=LaunchType,Value=fargate \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for EACH EKS Pod NAMESPACE - Memory
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "EKS-memory-High-<namespace>" \
+  --alarm-description "High memory usage for namespace <namespace>" \
+  --namespace "ContainerInsights" \
+  --metric-name "pod_memory_utilization_over_pod_limit" \
+  --dimensions Name=ClusterName,Value=<cluster-name> Name=Namespace,Value=<namespace> Name=LaunchType,Value=fargate \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for RDS CPU Utilization Alarm - Writer instance
+
+# period 300 --> 5 minutes (300 sec)
+# Threshold type --> Static
+# Condition --> GreaterThanThreshold
+# threshold 70 --> Memory Utilization > 70%
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "RDS-CPU-High-Writer" \
+  --alarm-description "Writer CPU Utilization > 70% for 5 minutes" \
+  --namespace "AWS/RDS" \
+  --metric-name "CPUUtilization" \
+  --dimensions Name=DBInstanceIdentifier,Value=<Db-identifier-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --alarm-actions <SNS-arn> \
+  --treat-missing-data missing
+
+# Alarm for RDS CPU Utilization Alarm - Reader instance
+
+# period 300 --> 5 minutes (300 sec)
+# Threshold type --> Static
+# Condition --> GreaterThanThreshold
+# threshold 70 --> Memory Utilization > 70%
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "RDS-CPU-High-Reader" \
+  --alarm-description "Reader CPU Utilization > 70% for 5 minutes" \
+  --namespace "AWS/RDS" \
+  --metric-name "CPUUtilization" \
+  --dimensions Name=DBInstanceIdentifier,Value=<Db-identifier-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --alarm-actions <SNS-arn> \
+  --treat-missing-data missing
+
+# Alarm for RDS FreeableMemory < 500 MB - Writer instance
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "RDS-MemoryLow-Writer" \
+  --alarm-description "Writer FreeableMemory < 500MB for 5 minutes" \
+  --namespace "AWS/RDS" \
+  --metric-name "FreeableMemory" \
+  --dimensions Name=DBInstanceIdentifier,Value=<Db-identifier-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 500000000 \
+  --comparison-operator LessThanThreshold \
+  --evaluation-periods 1 \
+  --alarm-actions <SNS-arn> \
+  --treat-missing-data missing
+
+# Alarm for RDS FreeableMemory < 500 MB - Reader instance
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "RDS-MemoryLow-Reader" \
+  --alarm-description "Reader FreeableMemory < 500MB for 5 minutes" \
+  --namespace "AWS/RDS" \
+  --metric-name "FreeableMemory" \
+  --dimensions Name=DBInstanceIdentifier,Value=<Db-identifier-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 500000000 \
+  --comparison-operator LessThanThreshold \
+  --evaluation-periods 1 \
+  --alarm-actions <SNS-arn> \
+  --treat-missing-data missing
+
+# Alarm for Redis elsticache - CPU Alarm (Cluster)
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "Redis-CPU-High-Cluster" \
+  --alarm-description "Redis Cluster CPU > 70% for 5 minutes" \
+  --namespace "AWS/ElastiCache" \
+  --metric-name "CPUUtilization" \
+  --dimensions Name=ReplicationGroupId,Value=<cluster-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for Redis elsticache - Node-Level CPU Alarms
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "Redis-CPU-High-Node-0001-001" \
+  --alarm-description "Redis node 0001-001 CPU > 70% for 5 minutes" \
+  --namespace "AWS/ElastiCache" \
+  --metric-name "CPUUtilization" \
+  --dimensions Name=CacheClusterId,Value=<node-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for Redis elsticache - Memory Alarm (Cluster)
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "Redis-Memory-High-Cluster" \
+  --alarm-description "Redis Cluster Memory Usage > 70% for 5 minutes" \
+  --namespace "AWS/ElastiCache" \
+  --metric-name "DatabaseMemoryUsagePercentage" \
+  --dimensions Name=ReplicationGroupId,Value=<cluster-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for Redis elsticache - Node-Level memory Alarms
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "Redis-Memory-High-Node-0001-001" \
+  --alarm-description "Redis Node 0001-001 Memory Usage > 70% for 5 minutes" \
+  --namespace "AWS/ElastiCache" \
+  --metric-name "DatabaseMemoryUsagePercentage" \
+  --dimensions Name=CacheClusterId,Value=<node-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for Redis elsticache - Cluster-Level CacheHitRate
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "Redis-CacheHitRate-Low-Cluster" \
+  --alarm-description "Redis Cluster CacheHitRate < 70% for 5 minutes" \
+  --namespace "AWS/ElastiCache" \
+  --metric-name "CacheHitRate" \
+  --dimensions Name=ReplicationGroupId,Value=<cluster-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator LessThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for Redis elsticache - Node-Level CacheHitRate
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "Redis-CacheHitRate-Low-0001-001" \
+  --alarm-description "Redis node 0001-001 CacheHitRate < 70% for 5 minutes" \
+  --namespace "AWS/ElastiCache" \
+  --metric-name "CacheHitRate" \
+  --dimensions Name=CacheClusterId,Value=<node-name> \
+  --statistic Average \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator LessThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for Redis elsticache - Cluster-Level Evictions
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "Redis-Evictions-High-Cluster" \
+  --alarm-description "Redis Cluster Evictions > 70 for 5 minutes" \
+  --namespace "AWS/ElastiCache" \
+  --metric-name "Evictions" \
+  --dimensions Name=ReplicationGroupId,Value=<cluster-name> \
+  --statistic Sum \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>
+
+# Alarm for Redis elsticache - Node-Level Evictions
+
+aws cloudwatch put-metric-alarm \
+  --alarm-name "Redis-Evictions-High-0001-001" \
+  --alarm-description "Redis node 0001-001 Evictions > 70 for 5 minutes" \
+  --namespace "AWS/ElastiCache" \
+  --metric-name "Evictions" \
+  --dimensions Name=CacheClusterId,Value=<node-name> \
+  --statistic Sum \
+  --period 300 \
+  --threshold 70 \
+  --comparison-operator GreaterThanThreshold \
+  --evaluation-periods 1 \
+  --treat-missing-data missing \
+  --alarm-actions <SNS-arn>

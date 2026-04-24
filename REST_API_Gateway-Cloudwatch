@@ -1,0 +1,65 @@
+ Step 1: Create IAM Role for API Gateway Logging
+
+Go to IAM → Roles → Create Role.
+Trusted entity type: Select AWS Service.
+Choose API Gateway as the service.
+Attach the managed policy: AmazonAPIGatewayPushToCloudWatchLogs
+create it.
+
+Step 2: Set Role ARN in API Gateway Account Settings
+
+Go to API Gateway → Settings (not the API or stage settings).
+Under CloudWatch log role ARN, paste the ARN of the IAM role you created.
+
+Step 3: Enable CloudWatch Logs for API Gateway
+
+Select the API you want to monitor.
+In the left navigation pane, click Stages.
+Choose the stage (e.g., dev, prod) where you want to enable logging.
+Scroll down to Logs/Tracing section.
+Enable CloudWatch Logs:
+
+Check Enable CloudWatch Logs.
+Select Log level:
+
+ERROR → Logs only errors.
+INFO → Logs request and response data.
+DEBUG → Logs full details (use carefully in production).
+
+Click Save Changes.
+
+Step 4: Verify CloudWatch Logs
+
+Go to CloudWatch → Logs → Log groups.
+You should see a log group named: API-Gateway-Execution-Logs_{API-ID}/{Stage-Name}
+
+
+Ref : https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html#apigateway-cloudwatch-log-formats
+
+Use a real route (recommended) --> To trigger some logs, you can invoke your API using curl or any HTTP client:
+
+curl -i -X POST \
+  -H "Content-Type: application/json" \
+  -d '{}' \
+  https://<api-id>.execute-api.<region>.amazonaws.com/<stage>/path
+
+To verify that logging is enabled and working correctly, you can perform the following steps:
+
+aws apigatewayv2 get-stages --api-id <API_ID> ----> Replace <API_ID> with your actual API ID. This command will return the stage details, including the logging configuration.
+
+View Log Streams
+
+aws logs describe-log-streams \
+  --log-group-name /aws/apigateway/<API_ID> \
+  --order-by LastEventTime \
+  --descending
+
+Replace <API_ID> with your actual API ID. This command will list the log streams in the specified log group, ordered by the time of the last event.
+
+Read Logs (invoke must happen first!)
+
+aws logs get-log-events \
+  --log-group-name /aws/apigateway/<API_ID> \
+  --log-stream-name <LOG_STREAM_NAME>
+
+Replace <API_ID> with your actual API ID and <LOG_STREAM_NAME> with the name of the log stream you want to read. This command will retrieve the log events from the specified log stream.

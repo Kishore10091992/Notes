@@ -1,0 +1,95 @@
+Auto Scaling READ Capacity (Read Replicas) - RDS
+
+1. Identify your Aurora DB cluster
+
+aws rds describe-db-clusters --query "DBClusters[*].{ID:DBClusterIdentifier,Engine:Engine,Status:Status,ARN:DBClusterArn}" --output table
+
+List clusters and pick the one you want to autoscale
+
+2. Export the chosen cluster identifier
+
+export CLUSTER_ID="my-aurora-cluster"   # <— replace with your cluster id
+
+3. Register the scalable target for reader count
+
+You must register the cluster’s reader count as a scalable dimension.
+
+   . Resource ID format for Aurora: cluster:<DBClusterIdentifier>
+   . Scalable dimension: rds:cluster:ReadReplicaCount
+
+Choose your min/max bounds:
+
+export MIN_READERS=1          # minimum number of Aurora Replicas (readers)
+export MAX_READERS=5          # maximum number of Aurora Replicas (readers)
+
+Register:
+
+aws application-autoscaling register-scalable-target \
+  --service-namespace rds \
+  --resource-id cluster:${CLUSTER_ID} \
+  --scalable-dimension rds:cluster:ReadReplicaCount \
+  --min-capacity ${MIN_READERS} \
+  --max-capacity ${MAX_READERS}
+
+4. Attach a Target Tracking scaling policy (recommended)
+
+You’ll attach a policy that keeps a metric (e.g., RDSReaderAverageCPUUtilization) near a target value, and lets the service add/remove replicas.
+
+Set a name and target:
+
+export POLICY_NAME="aurora-reader-tt-cpu-60"
+export TARGET_VALUE=60
+export SCALE_OUT_COOLDOWN=300   # seconds
+export SCALE_IN_COOLDOWN=600    # seconds
+
+5. Create the policy
+
+a. CPU utilization
+
+aws application-autoscaling put-scaling-policy \
+  --service-namespace rds \
+  --resource-id cluster:${CLUSTER_ID} \
+  --scalable-dimension rds:cluster:ReadReplicaCount \
+  --policy-name "${POLICY_NAME}" \
+  --policy-type TargetTrackingScaling \
+  --target-tracking-scaling-policy-configuration '{
+      "TargetValue": 60,
+      "PredefinedMetricSpecification": {
+        "PredefinedMetricType": "RDSReaderAverageCPUUtilization"
+      },
+      "ScaleOutCooldown": '"${SCALE_OUT_COOLDOWN}"',
+      "ScaleInCooldown": '"${SCALE_IN_COOLDOWN}"',
+      "DisableScaleIn": false
+    }'
+
+b. connection
+
+aws application-autoscaling put-scaling-policy \
+  --service-namespace rds \
+  --resource-id cluster:${CLUSTER_ID} \
+  --scalable-dimension rds:cluster:ReadReplicaCount \
+  --policy-name "aurora-reader-tt-connections-500" \
+  --policy-type TargetTrackingScaling \
+  --target-tracking-scaling-policy-configuration '{
+      "TargetValue": 500,
+      "PredefinedMetricSpecification": {
+        "PredefinedMetricType": "RDSReaderAverageDatabaseConnections"
+      },
+      "ScaleOutCooldown": 300,
+      "ScaleInCooldown": 600,
+      "DisableScaleIn": false
+    }'
+
+5. validation commands
+
+Check the scalable target
+
+aws application-autoscaling describe-scalable-targets \
+  --service-namespace rds \
+  --query "ScalableTargets[?ResourceId=='cluster:${CLUSTER_ID}']"
+
+Check the scaling policy
+
+aws application-autoscaling describe-scaling-policies \
+  --service-namespace rds \
+  --query "ScalingPolicies[?ResourceId=='cluster:${CLUSTER_ID}']"

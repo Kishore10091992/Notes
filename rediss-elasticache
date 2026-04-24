@@ -1,0 +1,11 @@
+# To list clusters
+
+aws elasticache describe-replication-groups --query "ReplicationGroups[].ReplicationGroupId"
+
+# To list all Redis nodes
+
+aws elasticache describe-cache-clusters --query "CacheClusters[].CacheClusterId"
+
+# To describe all the Redis clusters
+
+aws elasticache describe-replication-groups --query "ReplicationGroups[].{ID:ReplicationGroupId,Status:Status}"
