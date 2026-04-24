@@ -1,0 +1,89 @@
+# Create a Custom Event Bus
+
+aws events create-event-bus --name <EVENT_BUS_NAME>
+
+# Create a Partner Event Bus
+
+aws events create-event-bus \
+  --name <PARTNER_EVENT_BUS_NAME> \
+  --event-source-name <PARTNER_EVENT_SOURCE_NAME>
+
+# Create a Scheduled Rule - Using rate expression
+
+aws events put-rule \
+  --name MyScheduledRule \
+  --schedule-expression "rate(5 minutes)"
+
+# Create a Scheduled Rule - Using cron expression
+
+aws events put-rule \
+  --name MyDailyRule \
+  --schedule-expression "cron(0 9 * * ? *)"
+
+# Add Target to the Scheduled Rule
+
+aws events put-targets \
+  --rule MyScheduledRule \
+  --targets "Id"="1","Arn"="arn:aws:lambda:us-east-1:111122223333:function:MyFunction"
+
+# Add Target in Inline CLI Version
+
+aws events put-targets \
+  --rule MyScheduledRule \
+  --targets "[
+    {
+      \"Id\": \"DealerSyncTarget\",
+      \"Arn\": \"arn:aws:lambda:us-east-1:111122223333:function:YourLambdaFunction\",
+      \"Input\": \"{ \\\"APDV_DLR_BRAND\\\": \\\"C\\\", \\\"APDV_DLR_COUNTRY\\\": \\\"FR,BE,ES,DE,PL,CZ,PT,IT,IE,TR,HR,AR,AT,CH,DK,NL\\\", \\\"CUSTOM_PARAMETER\\\": \\\"processDealerSyncJob\\\" }\"
+    }
+  ]"
+
+# EventBridge Scheduled Rule – Full Restore Script
+
+#!/bin/bash
+
+# -----------------------------
+# RESTORE CONFIGURATION
+# -----------------------------
+
+RULE_NAME="MyScheduledRule"
+SCHEDULE_EXPR="cron(0 9 * * ? *)"     # change to your schedule
+LAMBDA_ARN="arn:aws:lambda:us-east-1:111122223333:function:YourLambdaFunction"
+
+# Constant JSON input EXACTLY as you asked:
+INPUT_JSON="{ \"APDV_DLR_BRAND\": \"C\", \"APDV_DLR_COUNTRY\": \"FR,BE,ES,DE,PL,CZ,PT,IT,IE,TR,HR,AR,AT,CH,DK,NL\", \"CUSTOM_PARAMETER\": \"processDealerSyncJob\" }"
+
+
+echo "--------------------------------------------"
+echo "Restoring EventBridge Scheduled Rule: $RULE_NAME"
+echo "--------------------------------------------"
+
+
+# -----------------------------------------------------------
+# 1. RESTORE RULE
+# -----------------------------------------------------------
+echo "Creating/updating rule..."
+aws events put-rule \
+    --name "$RULE_NAME" \
+    --schedule-expression "$SCHEDULE_EXPR" \
+    --state ENABLED
+
+echo "Rule restored."
+
+
+# -----------------------------------------------------------
+# 2. RESTORE TARGET WITH CONSTANT JSON INPUT
+# -----------------------------------------------------------
+echo "Restoring target..."
+
+aws events put-targets \
+  --rule "$RULE_NAME" \
+  --targets "[
+      {
+        \"Id\": \"LambdaTarget1\",
+        \"Arn\": \"$LAMBDA_ARN\",
+        \"Input\": \"${INPUT_JSON//\"/\\\"}\"
+      }
+  ]"
+
+echo "Target restored."

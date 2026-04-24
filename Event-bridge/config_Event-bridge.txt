@@ -1,0 +1,217 @@
+# List all event buses
+
+aws events list-event-buses
+
+aws events list-event-buses > eventbridge-event-buses.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# Describe each event bus
+
+aws events describe-event-bus --name <BUS_NAME>
+
+aws events describe-event-bus --name <BUS_NAME> > event-bus-<BUS_NAME>.json
+
+# List all rules
+
+aws events list-rules
+
+aws events list-rules > eventbridge-rules.json
+
+https://docs.aws.amazon.com/cli/latest/reference/events/list-rules.html
+
+# Describe each rule
+
+aws events describe-rule --name <RULE_NAME>
+
+aws events describe-rule --name <RULE_NAME> > rule-<RULE_NAME>.json
+
+https://docs.aws.amazon.com/cli/latest/userguide/cli_eventbridge_code_examples.html
+
+# List targets for each rule
+
+aws events list-targets-by-rule --rule <RULE_NAME>
+
+aws events list-targets-by-rule --rule <RULE_NAME> > rule-<RULE_NAME>-targets.json
+
+https://docs.aws.amazon.com/cli/latest/reference/events/list-targets-by-rule.html
+
+#List all archives
+
+aws events list-archives
+
+aws events list-archives > eventbridge-archives.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# Describe an archive
+
+aws events describe-archive --archive-name <ARCHIVE_NAME>
+
+aws events describe-archive --archive-name <ARCHIVE_NAME> > archive-<ARCHIVE_NAME>.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# API DESTINATIONS & CONNECTIONS**
+
+# List API destinations
+
+aws events list-api-destinations
+
+aws events list-api-destinations > eventbridge-api-destinations.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# Describe an API destination
+
+aws events describe-api-destination --name <API_DESTINATION_NAME>
+
+aws events describe-api-destination --name <API_DESTINATION_NAME> > api-destination-<NAME>.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# List connections
+
+aws events list-connections 
+
+aws events list-connections > eventbridge-connections.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# Describe a connection
+
+aws events describe-connection --name <CONNECTION_NAME>
+
+aws events describe-connection --name <CONNECTION_NAME> > connection-<NAME>.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# List endpoints
+
+aws events list-endpoints
+
+aws events list-endpoints > eventbridge-endpoints.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# Describe an endpoint
+
+aws events describe-endpoint --name <ENDPOINT_NAME>
+
+aws events describe-endpoint --name <ENDPOINT_NAME> > endpoint-<NAME>.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# List partner event sources
+
+aws events list-partner-event-sources
+
+aws events list-partner-event-sources > eventbridge-partner-sources.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# List partner event source accounts
+
+aws events list-partner-event-source-accounts
+
+aws events list-partner-event-source-accounts > eventbridge-partner-source-accounts.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# List replays
+
+aws events list-replays
+
+aws events list-replays > eventbridge-replays.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# Describe replay
+
+aws events describe-replay --replay-name <NAME>
+
+aws events describe-replay --replay-name <NAME> > replay-<NAME>.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# List permissions for a bus
+
+aws events describe-event-bus --name <BUS_NAME> | jq '.Policy'
+
+aws events describe-event-bus --name <BUS_NAME> | jq '.Policy' > event-bus-<BUS_NAME>-permissions.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+# List tags
+
+aws events list-tags-for-resource --resource-arn <ARN>
+
+aws events list-tags-for-resource --resource-arn <ARN> > tags-<RESOURCE>.json
+
+https://awscli.amazonaws.com/v2/documentation/api/2.15.10/reference/events/index.html
+
+---
+
+# **FULL AUTOMATED BACKUP SCRIPT FOR ENTIRE EVENTBRIDGE SETUP**  
+This script gathers **EVERYTHING** in a single run.
+
+### **backup-eventbridge.sh**
+```bash
+#!/bin/bash
+
+DIR="eventbridge-backup-$(date +%F)"
+mkdir -p $DIR
+
+echo "=== Backing up AWS EventBridge Configuration to $DIR ==="
+
+#################################
+# EVENT BUSES
+#################################
+aws events list-event-buses > $DIR/event-buses.json
+
+for bus in $(jq -r '.EventBuses[].Name' $DIR/event-buses.json); do
+    aws events describe-event-bus --name "$bus" > $DIR/event-bus-$bus.json
+done
+
+#################################
+# RULES AND TARGETS
+#################################
+aws events list-rules > $DIR/rules.json
+
+for rule in $(jq -r '.Rules[].Name' $DIR/rules.json); do
+    aws events describe-rule --name "$rule" > $DIR/rule-$rule.json
+    aws events list-targets-by-rule --rule "$rule" > $DIR/rule-$rule-targets.json
+done
+
+#################################
+# ARCHIVES
+#################################
+aws events list-archives > $DIR/archives.json
+
+#################################
+# API DESTINATIONS
+#################################
+aws events list-api-destinations > $DIR/api-destinations.json
+
+#################################
+# CONNECTIONS
+#################################
+aws events list-connections > $DIR/connections.json
+
+#################################
+# ENDPOINTS
+#################################
+aws events list-endpoints > $DIR/endpoints.json
+
+#################################
+# PARTNER SOURCES
+#################################
+aws events list-partner-event-sources > $DIR/partner-sources.json
+aws events list-partner-event-source-accounts > $DIR/partner-accounts.json
+
+#################################
+# REPLAYS
+#################################
+aws events list-replays > $DIR/replays.json
+
+echo "=== EventBridge Backup Completed Successfully ==="
