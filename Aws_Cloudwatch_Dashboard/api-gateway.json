@@ -1,0 +1,142 @@
+{
+    "widgets": [
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "api-for-aem - Request Count",
+                "metrics": [
+                    [
+                        "AWS/ApiGateway",
+                        "Count",
+                        "ApiName",
+                        "api-for-aem",
+                        {
+                            "stat": "Sum"
+                        }
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "api-for-aem - Error Rate (4XX & 5XX)",
+                "metrics": [
+                    [
+                        "AWS/ApiGateway",
+                        "4XXError",
+                        "ApiName",
+                        "api-for-aem"
+                    ],
+                    [
+                        "AWS/ApiGateway",
+                        "5XXError",
+                        "ApiName",
+                        "api-for-aem"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "api-for-aem - Latency",
+                "metrics": [
+                    [
+                        "AWS/ApiGateway",
+                        "Latency",
+                        "ApiName",
+                        "api-for-aem",
+                        {
+                            "stat": "Average"
+                        }
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "API-SRP-IL - Request Count",
+                "metrics": [
+                    [
+                        "AWS/ApiGateway",
+                        "Count",
+                        "ApiName",
+                        "SRP - IL",
+                        {
+                            "stat": "Sum"
+                        }
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "API-SRP-IL - Error Rate (4XX & 5XX)",
+                "metrics": [
+                    [
+                        "AWS/ApiGateway",
+                        "4XXError",
+                        "ApiName",
+                        "SRP - IL"
+                    ],
+                    [
+                        "AWS/ApiGateway",
+                        "5XXError",
+                        "ApiName",
+                        "SRP - IL"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "API-SRP-IL - Latency",
+                "metrics": [
+                    [
+                        "AWS/ApiGateway",
+                        "Latency",
+                        "ApiName",
+                        "SRP - IL",
+                        {
+                            "stat": "Average"
+                        }
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        }
+    ]
+}

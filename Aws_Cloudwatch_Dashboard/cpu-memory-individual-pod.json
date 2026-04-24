@@ -1,0 +1,31 @@
+{
+    "type": "metric",
+    "width": 12,
+    "height": 6,
+    "properties": {
+        "metrics": [
+            [
+                "ContainerInsights",
+                "pod_cpu_utilization",
+                "ClusterName",
+                "<ClusterName>",
+                "Namespace",
+                "<namespace>",
+                "PodName",
+                "<pod-name>"
+            ],
+            [
+                ".",
+                "pod_memory_utilization",
+                ".",
+                ".",
+                ".",
+                "."
+            ]
+        ],
+        "stat": "Average",
+        "period": 60,
+        "title": "Pod <pod-name> – CPU & Memory (%)",
+        "region": "<region>"
+    }
+}

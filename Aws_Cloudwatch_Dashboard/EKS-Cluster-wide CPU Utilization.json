@@ -1,0 +1,19 @@
+{
+    "type": "metric",
+    "width": 12,
+    "height": 6,
+    "properties": {
+        "metrics": [
+            [
+                "ContainerInsights",
+                "node_cpu_utilization",
+                "ClusterName",
+                "<ClusterName>"
+            ]
+        ],
+        "period": 60,
+        "stat": "Average",
+        "title": "EKS Cluster – CPU Utilization (%)",
+        "region": "<region>"
+    }
+}

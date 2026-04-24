@@ -1,0 +1,234 @@
+{
+    "widgets": [
+        {
+            "type": "text",
+            "width": 24,
+            "height": 1,
+            "properties": {
+                "markdown": "# Writer: rds-stg-srp-np-bsn0030651-cluster"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "CPU Utilization - Writer",
+                "metrics": [
+                    [
+                        "AWS/RDS",
+                        "CPUUtilization",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Database Connections - Writer",
+                "metrics": [
+                    [
+                        "AWS/RDS",
+                        "DatabaseConnections",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Read/Write IOPS - Writer",
+                "metrics": [
+                    [
+                        "AWS/RDS",
+                        "ReadIOPS",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster"
+                    ],
+                    [
+                        "AWS/RDS",
+                        "WriteIOPS",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Latency (Read / Write) - Writer",
+                "metrics": [
+                    [
+                        "AWS/RDS",
+                        "ReadLatency",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster"
+                    ],
+                    [
+                        "AWS/RDS",
+                        "WriteLatency",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 24,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Query Performance (DB Load) - Writer",
+                "metrics": [
+                    [
+                        "AWS/PI",
+                        "db.load.avg",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "text",
+            "width": 24,
+            "height": 1,
+            "properties": {
+                "markdown": "# Reader: rds-stg-srp-np-bsn0030651-cluster-reader"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "CPU Utilization - Reader",
+                "metrics": [
+                    [
+                        "AWS/RDS",
+                        "CPUUtilization",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster-reader"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Database Connections - Reader",
+                "metrics": [
+                    [
+                        "AWS/RDS",
+                        "DatabaseConnections",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster-reader"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Read/Write IOPS - Reader",
+                "metrics": [
+                    [
+                        "AWS/RDS",
+                        "ReadIOPS",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster-reader"
+                    ],
+                    [
+                        "AWS/RDS",
+                        "WriteIOPS",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster-reader"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Latency (Read / Write) - Reader",
+                "metrics": [
+                    [
+                        "AWS/RDS",
+                        "ReadLatency",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster-reader"
+                    ],
+                    [
+                        "AWS/RDS",
+                        "WriteLatency",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster-reader"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 24,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Query Performance (DB Load) - Reader",
+                "metrics": [
+                    [
+                        "AWS/PI",
+                        "db.load.avg",
+                        "DBInstanceIdentifier",
+                        "rds-stg-srp-np-bsn0030651-cluster-reader"
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        }
+    ]
+}

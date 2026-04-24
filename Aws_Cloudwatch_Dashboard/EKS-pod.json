@@ -1,0 +1,108 @@
+{
+    "widgets": [
+        {
+            "type": "text",
+            "width": 24,
+            "height": 1,
+            "properties": {
+                "markdown": "# Namespace: namespace-1"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Pod CPU Utilization - namespace-1",
+                "metrics": [
+                    [
+                        "ContainerInsights",
+                        "pod_cpu_utilization",
+                        "ClusterName",
+                        "cluster-name-here",
+                        "Namespace",
+                        "namespace-1",
+                        {
+                            "stat": "Average"
+                        }
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Pod Memory Utilization - namespace-1",
+                "metrics": [
+                    [
+                        "ContainerInsights",
+                        "pod_memory_utilization",
+                        "ClusterName",
+                        "cluster-name-here",
+                        "Namespace",
+                        "namespace-1",
+                        {
+                            "stat": "Average"
+                        }
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Pod Restart Count - namespace-1",
+                "metrics": [
+                    [
+                        "ContainerInsights",
+                        "pod_number_of_container_restarts",
+                        "ClusterName",
+                        "cluster-name-here",
+                        "Namespace",
+                        "namespace-1",
+                        {
+                            "stat": "Sum"
+                        }
+                    ]
+                ],
+                "view": "timeSeries",
+                "period": 300
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Total Pod Count - namespace-1",
+                "metrics": [
+                    [
+                        "ContainerInsights",
+                        "pod_status_ready",
+                        "ClusterName",
+                        "cluster-name-here",
+                        "Namespace",
+                        "namespace-1",
+                        {
+                            "stat": "Sum"
+                        }
+                    ]
+                ],
+                "view": "singleValue",
+                "period": 60
+            }
+        }
+    ]
+}

@@ -1,0 +1,268 @@
+{
+    "widgets": [
+        {
+            "type": "text",
+            "width": 24,
+            "height": 1,
+            "properties": {
+                "markdown": "# Redis Cluster: srp-rediss-elasticache (Cluster Metrics)"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Cluster: CPU Utilization (%)",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "CPUUtilization",
+                        "ReplicationGroupId",
+                        "srp-rediss-elasticache"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Cluster: Memory Usage (%)",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "DatabaseMemoryUsagePercentage",
+                        "ReplicationGroupId",
+                        "srp-rediss-elasticache"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Cluster: Cache Hit Rate",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "CacheHitRate",
+                        "ReplicationGroupId",
+                        "srp-rediss-elasticache"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Cluster: Evictions",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "Evictions",
+                        "ReplicationGroupId",
+                        "srp-rediss-elasticache"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "text",
+            "width": 24,
+            "height": 1,
+            "properties": {
+                "markdown": "## Node: srp-rediss-elasticache-0001-001"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "CPU Utilization (%) - Node 001",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "CPUUtilization",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-001"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Memory Usage (%) - Node 001",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "DatabaseMemoryUsagePercentage",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-001"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "CmdsProcessed (RPS) - Node 001",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "CmdsProcessed",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-001"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Network In/Out - Node 001",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "NetworkBytesIn",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-001"
+                    ],
+                    [
+                        "AWS/ElastiCache",
+                        "NetworkBytesOut",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-001"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "text",
+            "width": 24,
+            "height": 1,
+            "properties": {
+                "markdown": "## Node: srp-rediss-elasticache-0001-002"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "CPU Utilization (%) - Node 002",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "CPUUtilization",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-002"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Memory Usage (%) - Node 002",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "DatabaseMemoryUsagePercentage",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-002"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "CmdsProcessed (RPS) - Node 002",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "CmdsProcessed",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-002"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "region": "eu-west-1",
+                "title": "Network In/Out - Node 002",
+                "metrics": [
+                    [
+                        "AWS/ElastiCache",
+                        "NetworkBytesIn",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-002"
+                    ],
+                    [
+                        "AWS/ElastiCache",
+                        "NetworkBytesOut",
+                        "CacheClusterId",
+                        "srp-rediss-elasticache-0001-002"
+                    ]
+                ],
+                "period": 60,
+                "view": "timeSeries"
+            }
+        }
+    ]
+}

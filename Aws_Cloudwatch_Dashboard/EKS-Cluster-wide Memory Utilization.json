@@ -1,0 +1,19 @@
+{
+    "type": "metric",
+    "width": 12,
+    "height": 6,
+    "properties": {
+        "metrics": [
+            [
+                "ContainerInsights",
+                "node_memory_utilization",
+                "ClusterName",
+                "<ClusterName>"
+            ]
+        ],
+        "period": 60,
+        "stat": "Average",
+        "title": "EKS Cluster – Memory Utilization (%)",
+        "region": "<region>"
+    }
+}
