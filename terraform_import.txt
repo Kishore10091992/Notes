@@ -1,0 +1,89 @@
+terraform import -var-file=stg.tfvars aws_dynamodb_table.artcl_ddb ddb-np-bsn0030651-stg-srp-artcl
+
+terraform import -var-file=stg.tfvars aws_dynamodb_table.bookmrk_ddb ddb-np-bsn0030651-stg-srp-bookmrk
+
+terraform import -var-file=stg.tfvars aws_dynamodb_table.cntnt_ddb ddb-np-bsn0030651-stg-srp-cntnt
+
+terraform import -var-file=stg.tfvars aws_dynamodb_table.notfcn_ddb ddb-np-bsn0030651-stg-srp-notfcn
+
+terraform import -var-file=stg.tfvars aws_ecr_repository.srp_repo-content-service srp/mopar-srp-content-service-bsn0030651
+
+terraform import -var-file=stg.tfvars aws_ecr_repository.srp_repo-ecommerce-service srp/mopar-srp-ecommerce-service-bsn0030651
+
+terraform import -var-file=stg.tfvars aws_ecr_repository.srp_repo-frontend srp/mopar-srp-frontend-bsn0030651
+
+terraform import -var-file=stg.tfvars aws_ecr_repository.srp_repo-notification-service srp/mopar-srp-notification-service-bsn0030651
+
+terraform import -var-file=stg.tfvars aws_ecr_repository.srp_repo-user-service srp/mopar-srp-user-service-bsn0030651
+
+terraform import -var-file=stg.tfvars aws_ecr_repository.srp_repo-gateway-service srp/mopar-srp-gateway-service-bsn0030651
+
+terraform import -var-file=stg.tfvars aws_iam_role.eks_cluster_role role-srp-np-stg-bsn0030651-eksClusterRole
+
+terraform import -var-file=stg.tfvars aws_security_group.eks_sg eks-sg-stg-np-bsn0030651-eks-security-group
+
+terraform import -var-file=stg.tfvars aws_elasticache_subnet_group.srp_subnet_group srp-rediss-subnet-group
+
+terraform import -var-file=stg.tfvars aws_cloudwatch_log_group.slow_log_group /aws/elasticache/srp-slow-logs
+
+terraform import -var-file=stg.tfvars aws_cloudwatch_log_group.engine_log_group /aws/elasticache/srp-engine-logs
+
+terraform import -var-file=stg.tfvars aws_security_group.srp-redis-sg srp-rediss-sg
+
+terraform import -var-file=stg.tfvars aws_iam_role.fargate_pod_execution_role role-srp-stg-np-bsn0030651-fargatePodExecutionRole
+
+terraform import -var-file=stg.tfvars kubernetes_namespace.content-service content-service
+
+terraform import -var-file=stg.tfvars kubernetes_namespace.frontend frontend
+
+terraform import -var-file=stg.tfvars kubernetes_namespace.ecommerce-service ecommerce-service
+
+terraform import -var-file=stg.tfvars kubernetes_namespace.gateway-service gateway-service
+
+terraform import -var-file=stg.tfvars kubernetes_namespace.kube-system kube-system
+
+terraform import -var-file=stg.tfvars kubernetes_namespace.notification-service notification-service
+
+terraform import -var-file=stg.tfvars kubernetes_namespace.user-service user-service
+
+terraform import -var-file=stg.tfvars aws_kms_alias.rds_alias alias/rds/kms-key
+
+terraform import -var-file=stg.tfvars aws_kms_alias.sqs_alias alias/sqs/kms-key
+
+terraform import -var-file=stg.tfvars aws_kms_alias.elasticache_alias alias/elasticache/kms-key
+
+terraform import -var-file=stg.tfvars aws_s3_bucket.srp_development_bucket s3-srp-stg-np-bsn0030651-development
+
+terraform import -var-file=stg.tfvars aws_s3_bucket.srp_worker-process_bucket s3-srp-stg-np-bsn0030651-worker-process
+
+terraform import -var-file=stg.tfvars aws_secretsmanager_secret.srp_rds_admin_secret srp/rds/srpadmin-credentials
+
+terraform import -var-file=stg.tfvars aws_secretsmanager_secret.srp_ddb_admin_secret srp/dynamodb/admin/credentials
+
+terraform import -var-file=stg.tfvars aws_sqs_queue.content-dlq-fifo https://sqs.eu-west-1.amazonaws.com/987747149627/stg-srp-content-dlq.fifo
+
+terraform import -var-file=stg.tfvars aws_sqs_queue.global-dlq-fifo https://sqs.eu-west-1.amazonaws.com/987747149627/stg-srp-global-dlq.fifo
+
+terraform import -var-file=stg.tfvars aws_sqs_queue.notification-dlq-fifo https://sqs.eu-west-1.amazonaws.com/987747149627/stg-srp-notification-dlq.fifo
+
+terraform import -var-file=stg.tfvars aws_sqs_queue.comments-dlq-fifo https://sqs.eu-west-1.amazonaws.com/987747149627/stg-srp-comments-dlq.fifo
+ 
+terraform import -var-file=stg.tfvars aws_security_group.eks_sg sg-0a30e646cde245203
+
+terraform import -var-file=stg.tfvars aws_security_group.srp-redis-sg sg-0f0bd0ec0ad6fc9eb
+
+terraform import -var-file=stg.tfvars aws_rds_cluster.srp_db rds-srp-np-bsn0030651-cluster
+
+terraform import -var-file=stg.tfvars aws_sqs_queue.comments_fifo https://sqs.eu-west-1.amazonaws.com/987747149627/stg-srp-comments.fifo
+
+terraform import -var-file=stg.tfvars aws_sqs_queue.content_fifo https://sqs.eu-west-1.amazonaws.com/987747149627/stg-srp-content.fifo
+
+terraform import -var-file=stg.tfvars aws_sqs_queue.global_fifo https://sqs.eu-west-1.amazonaws.com/987747149627/stg-srp-global.fifo
+
+terraform import -var-file=stg.tfvars aws_sqs_queue.notification_fifo https://sqs.eu-west-1.amazonaws.com/987747149627/stg-srp-notification.fifo
+
+terraform import -var-file=stg.tfvars aws_iam_role.lb_controller_role role-stg-srp-np-bsn0030651-AwsEKSLoadBalancerControllerRole
+
+terraform import -var-file=stg.tfvars aws_eks_cluster.eks eks-srp-stg-np-bsn0030651-individual-repairer
+
+terraform import -var-file=stg.tfvars aws_elasticache_replication_group.redis_cluster_compatible srp-rediss-elasticache

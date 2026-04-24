@@ -1,0 +1,80 @@
+Terraformer - Infrastructure To Code
+
+🚀 STEP 1: Open AWS CloudShell
+
+In AWS Console, click the CloudShell icon in the top navbar.
+CloudShell is pre‑authenticated with your AWS login, so no need for keys.
+
+🚀 STEP 1: Create S3 bucket
+
+aws s3api create-bucket \
+  --bucket my-terraform-state-bucket-123 \
+  --region us-east-1 \
+  --create-bucket-configuration LocationConstraint=us-east-1
+
+aws s3api put-bucket-versioning \
+  --bucket my-terraform-state-bucket-123 \
+  --versioning-configuration Status=Enabled
+
+🚀 STEP 2: Install Terraform (needed for Terraformer)
+
+Run in CloudShell:
+
+sudo yum install -y yum-utils shadow-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
+
+Verify install:
+
+terraform version
+
+🚀 STEP 3: Install Terraformer (Linux AMD64)
+
+Terraformer installation requires downloading the latest binary. Run:
+
+export PROVIDER=aws
+curl -LO "$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/latest \
+| grep tag_name | cut -d '"' -f 4)/terraformer-${PROVIDER}-linux-amd64"
+chmod +x terraformer-${PROVIDER}-linux-amd64
+sudo mv terraformer-${PROVIDER}-linux-amd64 /usr/local/bin/terraformer
+
+Test it:
+
+terraformer --version
+
+
+🚀 STEP 4: Create Terraform configuration
+
+Terraformer needs a minimal provider block.
+
+main.tf
+provider.tf
+
+Initialize:
+
+terraform init
+
+🚀 STEP 5: Use Terraformer to Import AWS Resources
+
+terraformer import aws --resources="*" --regions=us-east-1
+
+Terraformer will generate:
+
+/generated/aws/<service>/<resource>.tf
+/generated/aws/<service>/outputs.tf 
+/generated/aws/<service>/variables.tf
+
+🚀 STEP 6: Add Remote S3 Backend to Your Terraform
+
+terraform {
+  backend "s3" {
+	bucket = "my-terraform-state-bucket-123"
+	key	= "prod/terraform.tfstate"
+	region = "us-east-1"
+	encrypt = true
+  }
+}
+
+🚀STEP 7:  Migrate Terraformer’s Local State → S3
+
+terraform init -migrate-state

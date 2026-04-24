@@ -1,0 +1,59 @@
+{
+  "rules": [
+    {
+      "rule-id": 1053880107,
+      "rule-name": "mj8i0i5c-trk2wm",
+      "rule-type": "selection",
+      "rule-action": "include",
+      "object-locator": {
+        "schema-name": "S",
+        "table-name": "SRVPARM"
+      },
+      "filters": []
+    },
+    {
+      "rule-id": 1052715729,
+      "rule-name": "mj8i0huc-9jr7dj",
+      "rule-type": "selection",
+      "rule-action": "include",
+      "object-locator": {
+        "schema-name": "S",
+        "table-name": "SRVPMR"
+      },
+      "filters": []
+    },
+    {
+      "rule-id": 1051843870,
+      "rule-name": "mj8i0hgq-1rb4ar",
+      "rule-type": "selection",
+      "rule-action": "include",
+      "object-locator": {
+        "schema-name": "S",
+        "table-name": "SPARM"
+      },
+      "filters": []
+    },
+    {
+      "rule-id": 1921266073,
+      "rule-name": "mjify5ia-gpow1q",
+      "rule-type": "selection",
+      "rule-action": "include",
+      "object-locator": {
+        "schema-name": "S",
+        "table-name": "SRF%"
+      },
+      "filters": []
+    },
+    {
+      "rule-id": 1574046602,
+      "rule-name": "miyouluk-qpt3sg",
+      "rule-type": "transformation",
+      "rule-target": "schema",
+      "rule-action": "rename",
+      "object-locator": {
+        "schema-name": "S"
+      },
+      "value": "vdr"
+    }
+  ]
+}
