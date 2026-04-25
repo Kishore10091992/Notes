@@ -1,0 +1,54 @@
+What is Terraform Data Source ?
+
+*It is the way to fetch and use the information from existing resource without creating or modifying
+*It will get the data from outside of terraform configuration
+*So we can refer the data in our code
+*It is read-only lookup
+
+Why Use Data Source ?
+
+*The resource we need already exist
+*May be it was created manually or created by another team
+*Instead of hardcoding the details, we can use data source to use that information
+
+Syntax
+
+data "<provider>_<resource_type>" "name" {
+ #configuration argument (like filters, name, ids, etc)
+}
+
+Example : 1
+
+data "aws_ami" "exsisting_ami" {
+ ami_id = "<ami_id>"
+}
+
+Example : 2
+
+data "aws_vpc" "exsisting_vpc" {
+ id = "<vpc_id>"
+}
+
+Example : 3
+
+data "aws_ami" "amazon_linux_ami" {
+ most_recent = true
+ owners = ["amazon"]
+
+ filter {
+  name = "name"
+  values = ["amzn2-ami-hvm*"]
+ }
+}
+
+Example : 4
+
+data "aws_ami" "ubuntu_ami" {
+ most_recent = true
+ owners = ["<account_id>"]
+
+ filter {
+  name = "name"
+  values = ["ubuntu/image/hvm/*"]
+ }
+}
